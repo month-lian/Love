@@ -1,0 +1,19 @@
+if ! [ -d "/sdcard/.NetworkDisk" ]; then mkdir /sdcard/.NetworkDisk; fi
+current_path=$(pwd); content=$(cat /sdcard/.NetworkDisk/.path); if [ -f "/sdcard/.NetworkDisk/.path" ]; then if [ -e "$content" ]; then paths="$content"; contents=""; if [ "$content" == "$current_path" ]; then paths="$content"; contents="(默认)"; fi; else paths="$current_path"; contents="(路径错误，启用默认路径)"; fi; else echo "$current_path" > /sdcard/.NetworkDisk/.path; paths="$current_path"; contents="(默认)"; fi
+echo -e "\033[33m下载失败：405，请尝试更新源！"
+echo "其他错误请检查网络连接和网络延迟！"
+echo -e "\n\033[32m下载路径：$paths$contents"
+echo "\n\033[0m- LOVE network disk * 1.0.0"
+echo "- [0] 结束程序"
+echo "- [1] 更新源件"
+echo "- [2] 下载路径"
+while true; do
+echo -n "- 请输入选项："
+read option
+if [ "$option" == "0" ]; then exit 0
+elif [ "$option" == "1" ]; then
+echo "- 源更新完成！"
+elif [ "$option" == "2" ]; then echo -n "- 请输入路径："; read Inputpath; echo "$Inputpath" > /sdcard/.NetworkDisk/.path
+else echo "- 没有该选项！"
+fi
+done
